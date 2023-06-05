@@ -131,14 +131,26 @@ open class StandardKeyboardActionHandler: NSObject, KeyboardActionHandler {
     }
 
     /**
-     Try to handling a certain `gesture` n a certain `action`.
+     Handle a certain `action` programmatically.
+
+     Calling this will make the action handler try to handle
+     the ``KeyboardAction/standardAction`` of the action, if
+     it has one.
+     */
+    public func handle(_ action: KeyboardAction) {
+        action.standardAction?(keyboardController)
+    }
+
+    /**
+     Handle a certain `gesture` on a certain `action`.
      */
     open func handle(_ gesture: KeyboardGesture, on action: KeyboardAction) {
         handle(gesture, on: action, replaced: false)
     }
 
     /**
-     Try handling a certain `gesture` on a certain `action`.
+     Handle a certain `gesture` on a certain `action` with a
+     `replaced` flag to indicate that the action is replaced.
 
      This function is used by the standard action handler to
      handle the cases where the action can be triggered as a

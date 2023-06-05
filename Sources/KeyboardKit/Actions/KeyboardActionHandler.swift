@@ -36,6 +36,11 @@ public protocol KeyboardActionHandler: AnyObject {
     func canHandle(_ gesture: KeyboardGesture, on action: KeyboardAction) -> Bool
     
     /**
+     Handle a certain `action` programmatically.
+     */
+    func handle(_ action: KeyboardAction)
+
+    /**
      Handle a certain `gesture` on a certain `action`.
      */
     func handle(_ gesture: KeyboardGesture, on action: KeyboardAction)
