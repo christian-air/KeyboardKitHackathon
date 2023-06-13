@@ -6,6 +6,7 @@
 //  Copyright © 2021-2023 Daniel Saidi. All rights reserved.
 //
 
+import ChatGPTSwift
 import KeyboardKit
 import SwiftUI
 
@@ -35,6 +36,7 @@ import SwiftUI
  see how to set up KeyboardKit Pro.
  */
 struct HomeScreen: View {
+    let api = ChatGPTAPI(apiKey: "CHANGE-API-KEY")
 
     @State
     private var appearance = ColorScheme.light
@@ -117,7 +119,7 @@ extension HomeScreen {
     var testButton: some View {
         VStack {
             Button {
-                print("")
+                askAI()
             } label: {
                 Text("Test your Text Mate")
             }
@@ -141,6 +143,25 @@ extension HomeScreen {
                 } icon: {
                     Image(systemName: "doc.text")
                 }
+            }
+        }
+    }
+    
+    private func askAI() {
+        Task {
+            do {
+                let stream = try await api.sendMessageStream(
+                    text: text,
+                    model: "gpt-3.5-turbo",
+                    systemText: "Act as a {{persona}}, using a {{tone}} tone and starting with the users input, generate a {{output}} text to help the user write the text they want. You must always generate the text as if you were the user writing it while texting to someone else. Don't give advise on how to act, but only generate the text.",
+                    temperature: 0.5
+                )
+                text = ""
+                for try await line in stream {
+                    text += line
+                }
+            } catch {
+                print(error.localizedDescription)
             }
         }
     }
