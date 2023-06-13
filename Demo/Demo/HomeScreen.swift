@@ -6,6 +6,7 @@
 //  Copyright © 2021-2023 Daniel Saidi. All rights reserved.
 //
 
+import ChatGPTSwift
 import KeyboardKit
 import SwiftUI
 
@@ -35,6 +36,13 @@ import SwiftUI
  see how to set up KeyboardKit Pro.
  */
 struct HomeScreen: View {
+    
+    //AI
+    let api = ChatGPTAPI(apiKey: "CHANGE-API-KEY")
+    let persona = "a young adult"
+    let tone = "a sarcastic"
+    let outputFormat = "a formal email answer"
+    //
 
     @State
     private var appearance = ColorScheme.light
@@ -117,7 +125,7 @@ extension HomeScreen {
     var testButton: some View {
         VStack {
             Button {
-                print("")
+                askAI()
             } label: {
                 Text("Test your Text Mate")
             }
@@ -144,7 +152,30 @@ extension HomeScreen {
             }
         }
     }
-
+    
+    private func askAI() {
+        Task {
+            do {
+                let stream = try await api.sendMessageStream(
+                    text: text,
+                    model: "gpt-3.5-turbo",
+                    systemText: getSystemText(),
+                    temperature: 0.5
+                )
+                text = ""
+                for try await line in stream {
+                    text += line
+                }
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func getSystemText() -> String {
+        return "Act as \(persona), using \(tone) tone, generating \(outputFormat) based on a user's text input. You must always generate the text as if you were the user writing to someone else. Don't give advise on how to act, but only generate the text."
+    }
+    
     var stateSection: some View {
         Section(header: Text("Keyboard"), footer: footerText) {
             KeyboardEnabledLabel(
