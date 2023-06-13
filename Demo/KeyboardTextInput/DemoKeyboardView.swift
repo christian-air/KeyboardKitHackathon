@@ -38,7 +38,7 @@ struct DemoKeyboardView: View {
         
         VStack(spacing: 0) {
             Button {
-                //
+              print("Input *\(controller.mainTextDocumentProxy.selectedText)")
             } label: {
                 Image(systemName: "command.square.fill")
                     .foregroundColor(.green)
