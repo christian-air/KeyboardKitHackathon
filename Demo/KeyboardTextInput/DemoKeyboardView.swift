@@ -35,15 +35,16 @@ struct DemoKeyboardView: View {
     unowned var controller: KeyboardInputViewController
 
     var body: some View {
+        
         VStack(spacing: 0) {
-            KeyboardTextField("Type text here...", text: $text1, controller: controller)
-                .focused($isFocused1, doneButton: doneButton)
-                .padding(3)
-
-            KeyboardTextView(text: $text2, controller: controller)
-                .focused($isFocused2, doneButton: doneButton)
-                .frame(height: 80)
-                .padding(3)
+            Button {
+              print("Input *\(controller.mainTextDocumentProxy.selectedText)")
+            } label: {
+                Image(systemName: "command.square.fill")
+                    .foregroundColor(.green)
+                Text("Expand...")
+            }
+            .padding()
 
             SystemKeyboard(
                 controller: controller,
