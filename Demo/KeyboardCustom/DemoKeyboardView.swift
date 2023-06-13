@@ -1,47 +1,47 @@
+////
+////  DemoKeyboardView.swift
+////  KeyboardCustom
+////
+////  Created by Daniel Saidi on 2022-02-04.
+////  Copyright © 2022-2023 Daniel Saidi. All rights reserved.
+////
 //
-//  DemoKeyboardView.swift
-//  KeyboardCustom
+//import KeyboardKit
+//import SwiftUI
 //
-//  Created by Daniel Saidi on 2022-02-04.
-//  Copyright © 2022-2023 Daniel Saidi. All rights reserved.
+///**
+// This view adds a `SystemKeyboard` with some more views to a
+// `VStack`, then configures the keyboard slightly.
 //
-
-import KeyboardKit
-import SwiftUI
-
-/**
- This view adds a `SystemKeyboard` with some more views to a
- `VStack`, then configures the keyboard slightly.
-
- The system keyboard will then adapt its appearance based on
- the ``DemoKeyboardAppearance``, its input keys based on the
- ``DemoInputSetProvider`` and its full keyboard layout based
- on the ``DemoLayoutProvider``.
- */
-struct DemoKeyboardView: View {
-
-    unowned var controller: KeyboardInputViewController
-
-    @EnvironmentObject
-    private var keyboardContext: KeyboardContext
-
-    var body: some View {
-        VStack(spacing: 0) {
-            Text("Locale: \(keyboardContext.locale.identifier)")
-                .frame(maxWidth: .infinity)
-                .padding(5)
-                .background(Color.primary.colorInvert())
-                .cornerRadius(5)
-                .padding()
-                .background(Color.red)
-
-            SystemKeyboard(
-                controller: controller,
-                autocompleteToolbar: .none
-            )
-            .background(Color.white)
-
-            Color.red
-        }
-    }
-}
+// The system keyboard will then adapt its appearance based on
+// the ``DemoKeyboardAppearance``, its input keys based on the
+// ``DemoInputSetProvider`` and its full keyboard layout based
+// on the ``DemoLayoutProvider``.
+// */
+//struct DemoKeyboardView: View {
+//
+//    unowned var controller: KeyboardInputViewController
+//
+//    @EnvironmentObject
+//    private var keyboardContext: KeyboardContext
+//
+//    var body: some View {
+//        VStack(spacing: 0) {
+//            Text("Locale: \(keyboardContext.locale.identifier)")
+//                .frame(maxWidth: .infinity)
+//                .padding(5)
+//                .background(Color.primary.colorInvert())
+//                .cornerRadius(5)
+//                .padding()
+//                .background(Color.red)
+//
+//            SystemKeyboard(
+//                controller: controller,
+//                autocompleteToolbar: .none
+//            )
+//            .background(Color.white)
+//
+//            Color.red
+//        }
+//    }
+//}
