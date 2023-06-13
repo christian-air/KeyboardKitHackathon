@@ -23,9 +23,6 @@ struct DemoKeyboardView: View {
     @State
     private var text1 = ""
 
-    @State
-    private var text2 = ""
-
     @FocusState
     private var isFocused1: Bool
 
@@ -38,10 +35,7 @@ struct DemoKeyboardView: View {
         
         VStack(spacing: 0) {
             Button {
-                // TODO: Create Method to replace text
-                // TODO: Connect to CHATGPT Response
-                
-                print("Input *\(controller.getAllText())")
+                updateText()
             } label: {
                 Image(systemName: "command.square.fill")
                     .foregroundColor(.green)
@@ -55,7 +49,16 @@ struct DemoKeyboardView: View {
             )
         }.buttonStyle(.plain)
     }
-
+    
+    func updateText() {
+        let currentText = controller.getAllText()
+        for _ in 0 ..< currentText.composedCount {
+            controller.textDocumentProxy.deleteBackward()
+        }
+        controller.insertText("TEST")
+    }
+    
+    
     func doneButton() -> some View {
         Image(systemName: "x.circle.fill")
     }

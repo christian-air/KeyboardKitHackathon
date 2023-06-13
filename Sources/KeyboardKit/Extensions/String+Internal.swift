@@ -19,7 +19,7 @@ extension String {
         trimmingCharacters(in: set)
     }
     
-    var composedCount : Int {
+    public var composedCount : Int {
         return self.utf16.count
     }    
 }
