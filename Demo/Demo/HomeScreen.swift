@@ -36,7 +36,13 @@ import SwiftUI
  see how to set up KeyboardKit Pro.
  */
 struct HomeScreen: View {
+    
+    //AI
     let api = ChatGPTAPI(apiKey: "CHANGE-API-KEY")
+    let persona = "a young adult"
+    let tone = "a sarcastic"
+    let outputFormat = "a formal email answer"
+    //
 
     @State
     private var appearance = ColorScheme.light
@@ -153,7 +159,7 @@ extension HomeScreen {
                 let stream = try await api.sendMessageStream(
                     text: text,
                     model: "gpt-3.5-turbo",
-                    systemText: "Act as a {{persona}}, using a {{tone}} tone and starting with the users input, generate a {{output}} text to help the user write the text they want. You must always generate the text as if you were the user writing it while texting to someone else. Don't give advise on how to act, but only generate the text.",
+                    systemText: getSystemText(),
                     temperature: 0.5
                 )
                 text = ""
@@ -165,7 +171,11 @@ extension HomeScreen {
             }
         }
     }
-
+    
+    private func getSystemText() -> String {
+        return "Act as \(persona), using \(tone) tone, generating \(outputFormat) based on a user's text input. You must always generate the text as if you were the user writing to someone else. Don't give advise on how to act, but only generate the text."
+    }
+    
     var stateSection: some View {
         Section(header: Text("Keyboard"), footer: footerText) {
             KeyboardEnabledLabel(
