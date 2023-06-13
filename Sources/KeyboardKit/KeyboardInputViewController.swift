@@ -240,6 +240,46 @@ open class KeyboardInputViewController: UIInputViewController, KeyboardControlle
     public var textInputProxy: TextInputProxy? {
         didSet { viewWillSyncWithContext() }
     }
+    
+    open func getAllText() -> String {
+        let proxy: UITextDocumentProxy =  textDocumentProxy
+        var before: String? = proxy.documentContextBeforeInput
+        var after: String? = proxy.documentContextAfterInput
+        
+        while after != nil { // move cursor to last char
+            let afterLength: Int  = after?.composedCount ?? 0
+            if afterLength <= 0 || (afterLength == 1 && before == "\n") {
+                break
+            }
+            Thread.sleep(forTimeInterval: 0.01)
+            proxy.adjustTextPosition(byCharacterOffset: afterLength)
+            Thread.sleep(forTimeInterval: 0.01)
+            after = proxy.documentContextAfterInput
+        }
+        
+        let beforeArray: NSMutableString = ""
+        Thread.sleep(forTimeInterval: 0.01)
+        before = proxy.documentContextBeforeInput
+        
+        while before != nil {
+            let beforeLength: Int  = before?.composedCount ?? 0
+            if beforeLength <= 0 || (beforeLength == 1 && before == "\n") {
+                break
+            }
+            beforeArray.insert((before ?? ""), at: 0)
+            Thread.sleep(forTimeInterval: 0.01)
+            proxy.adjustTextPosition(byCharacterOffset: -beforeLength)
+            Thread.sleep(forTimeInterval: 0.01)
+            before = proxy.documentContextBeforeInput
+        }
+        
+        let allText: String = String(beforeArray)
+        Thread.sleep(forTimeInterval: 0.01)
+        proxy.adjustTextPosition(byCharacterOffset: allText.composedCount)
+        Thread.sleep(forTimeInterval: 0.01)
+        
+        return allText
+    }
 
 
     // MARK: - Observables

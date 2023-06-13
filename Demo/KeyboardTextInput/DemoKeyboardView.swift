@@ -38,7 +38,10 @@ struct DemoKeyboardView: View {
         
         VStack(spacing: 0) {
             Button {
-              print("Input *\(controller.mainTextDocumentProxy.selectedText)")
+                // TODO: Create Method to replace text
+                // TODO: Connect to CHATGPT Response
+                
+                print("Input *\(controller.getAllText())")
             } label: {
                 Image(systemName: "command.square.fill")
                     .foregroundColor(.green)

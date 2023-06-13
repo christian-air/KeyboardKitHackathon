@@ -18,4 +18,8 @@ extension String {
     func trimming(_ set: CharacterSet) -> String {
         trimmingCharacters(in: set)
     }
+    
+    var composedCount : Int {
+        return self.utf16.count
+    }    
 }
