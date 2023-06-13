@@ -838,7 +838,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = PMEDFW438U;
+				DEVELOPMENT_TEAM = UM2MBHPT53;
 				INFOPLIST_FILE = Keyboard/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = English;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -860,7 +860,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = PMEDFW438U;
+				DEVELOPMENT_TEAM = UM2MBHPT53;
 				INFOPLIST_FILE = Keyboard/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = English;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;

@@ -54,15 +54,20 @@ struct HomeScreen: View {
 
     var body: some View {
         NavigationView {
-            List {
-                textFieldSection
-                editorLinkSection
-                stateSection
-            }
-            .buttonStyle(.plain)
-            .navigationTitle("KeyboardKit")
-            .onChange(of: isAppearanceDark) { newValue in
-                appearance = isAppearanceDark ? .dark : .light
+            
+            VStack {
+                List {
+                    textFieldSection
+                    testButton
+                    profiles
+                    stateSection
+                }
+                .buttonStyle(.plain)
+                .navigationTitle("TextMate")
+                .onChange(of: isAppearanceDark) { newValue in
+                    appearance = isAppearanceDark ? .dark : .light
+                }
+                
             }
         }
         .navigationViewStyle(.stack)
@@ -83,15 +88,45 @@ struct HomeScreen: View {
 extension HomeScreen {
 
     var textFieldSection: some View {
-        Section(header: Text("Text Field")) {
+        Section(header: Text("Test your text with TextMate")) {
             TextEditor(text: $text)
                 .frame(height: 100)
                 .keyboardAppearance(appearance)
-                .environment(\.layoutDirection, isRtl ? .rightToLeft : .leftToRight)
-            Toggle(isOn: $isAppearanceDark) {
-                Text("Dark appearance")
+        }
+    }
+    
+    var profiles: some View {
+        Section(header: Text("Profiles")) {
+
+            NavigationLink(destination: Text("Text Type")) {
+                Image(systemName: "person.3")
+                Text("Persona")
+            }
+            NavigationLink(destination: Text("Audience")) {
+                Image(systemName: "person.3")
+                Text("Tone")
+            }
+            NavigationLink(destination: Text("Text Type")) {
+                Image(systemName: "person.3")
+                Text("Length")
             }
         }
+    }
+    
+    
+    var testButton: some View {
+        VStack {
+            Button {
+                print("")
+            } label: {
+                Text("Test your Text Mate")
+            }
+            .buttonStyle(.borderedProminent)
+            .frame(maxWidth: .infinity, alignment: .center)
+        }
+        .listRowInsets(.init())
+        .listRowBackground(Color.clear)
+        .padding(.horizontal)
     }
 
     var editorLinkSection: some View {
@@ -137,6 +172,7 @@ extension HomeScreen {
     var footerText: some View {
         Text("You must enable the keyboard in System Settings, then select it with 🌐 when typing.")
     }
+    
 
     var isRtl: Bool {
         let keyboardId = keyboardState.activeKeyboardBundleIds.first
