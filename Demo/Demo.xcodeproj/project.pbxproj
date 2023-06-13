@@ -26,6 +26,7 @@
 		A9EAA6F527B165B600BC9376 /* DemoKeyboardAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EAA6F127B165B600BC9376 /* DemoKeyboardAppearance.swift */; };
 		A9EAA6F627B165B600BC9376 /* DemoKeyboardLayoutProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EAA6F227B165B600BC9376 /* DemoKeyboardLayoutProvider.swift */; };
 		A9EAA6F727B165B600BC9376 /* DemoKeyboardActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EAA6F327B165B600BC9376 /* DemoKeyboardActionHandler.swift */; };
+		AA4B36302A38D0740055DA35 /* ChatGPTSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AA4B362F2A38D0740055DA35 /* ChatGPTSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA4B36302A38D0740055DA35 /* ChatGPTSwift in Frameworks */,
 				A968E3A629BA9ECB00A3DFEF /* KeyboardKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -278,6 +280,7 @@
 			name = KeyboardTextInput;
 			packageProductDependencies = (
 				A968E3A529BA9ECB00A3DFEF /* KeyboardKit */,
+				AA4B362F2A38D0740055DA35 /* ChatGPTSwift */,
 			);
 			productName = KeyboardTextInput;
 			productReference = A968E39A29BA9E7D00A3DFEF /* KeyboardTextInput.appex */;
@@ -525,7 +528,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = PMEDFW438U;
+				DEVELOPMENT_TEAM = 75TZKXGZQA;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Demo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -745,6 +748,11 @@
 		A9EAA6CA27B1527300BC9376 /* KeyboardKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = KeyboardKit;
+		};
+		AA4B362F2A38D0740055DA35 /* ChatGPTSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 945C51072A38A5890093F93B /* XCRemoteSwiftPackageReference "ChatGPTSwift" */;
+			productName = ChatGPTSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

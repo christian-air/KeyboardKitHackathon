@@ -8,6 +8,7 @@
 
 import KeyboardKit
 import SwiftUI
+import ChatGPTSwift
 
 /**
  This view adds a `SystemKeyboard` and two text input fields
@@ -19,9 +20,12 @@ import SwiftUI
  use separate text and focus bindings.
  */
 struct DemoKeyboardView: View {
-
+    
     @State
-    private var text1 = ""
+    private var text = ""
+    
+    @State
+    private var text2 = ""
 
     @FocusState
     private var isFocused1: Bool
@@ -30,6 +34,12 @@ struct DemoKeyboardView: View {
     private var isFocused2: Bool
 
     unowned var controller: KeyboardInputViewController
+    
+    //AI
+    let api = ChatGPTAPI(apiKey: "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")
+    let persona = "a young adult"
+    let tone = "friendly"
+    let outputFormat = "invitation"
 
     var body: some View {
         
@@ -52,14 +62,48 @@ struct DemoKeyboardView: View {
     
     func updateText() {
         let currentText = controller.getAllText()
+        
+        text2 = currentText
+        askAI()
+        
         for _ in 0 ..< currentText.composedCount {
             controller.textDocumentProxy.deleteBackward()
         }
-        controller.insertText("TEST")
     }
     
     
     func doneButton() -> some View {
         Image(systemName: "x.circle.fill")
     }
+    
+    private func askAI() {
+        Task {
+            do {
+                let stream = try await api.sendMessageStream(
+                    text: text2,
+                    model: "gpt-3.5-turbo",
+                    systemText: getSystemText(),
+                    temperature: 0.5
+                )
+                text = ""
+                for try await line in stream {
+                    text += line
+                }
+                
+                await controller.insertText(text)
+                
+                
+                
+            } catch {
+                print(error.localizedDescription)
+            }
+            
+        }
+    }
+    
+    private func getSystemText() -> String {
+        return "Act as a \(persona), using \(tone) tone, generate a \(outputFormat) text based on the user's text input. You must always generate the text as if you were the user writing to someone else. Don't give advise on how to act, but only generate the text. Be expressive."
+    }
+    
+    
 }
